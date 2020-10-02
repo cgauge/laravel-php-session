@@ -1,0 +1,39 @@
+{
+  "name": "customergauge/php-session",
+  "description": "Native PHP Session adapter for Laravel Authentication",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["laravel", "php", "session", "authentication"],
+  "authors": [
+    {
+      "name": "Marco Deleu",
+      "email": "deleugyn@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3",
+    "illuminate/contracts": "^7.1",
+    "illuminate/auth": "^7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.3",
+    "phpstan/phpstan": "^0.12.42"
+  },
+  "autoload": {
+    "psr-4": {
+      "CustomerGauge\\Session\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\CustomerGauge\\Session\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "CustomerGauge\\Session\\NativeSessionServiceProvider"
+      ]
+    }
+  }
+}
