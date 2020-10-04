@@ -15,7 +15,7 @@ final class NativeSessionGuard implements Guard
 
     private $dispatcher;
 
-    public function __construct(NativeSessionUserProvider $provider, SessionStart $session, Dispatcher $dispatcher)
+    public function __construct(NativeSessionUserProvider $provider, SessionRetriever $session, Dispatcher $dispatcher)
     {
         $this->provider = $provider;
         $this->session = $session;
@@ -28,13 +28,16 @@ final class NativeSessionGuard implements Guard
             return $this->user;
         }
 
-        $this->session->start();
+        $session = $this->session->retrieve();
 
-        if (! isset($_SESSION)) {
+        // Laravel implements a Chain of Responsibility on the Authentication process.
+        // If this Guard cannot authenticate, we must return null to give room for
+        // other Guards to attempt to authenticate the current request.
+        if (! $session) {
             return null;
         }
 
-        $user = $this->provider->retrieveByCredentials($_SESSION);
+        $user = $this->provider->retrieveByCredentials($session);
 
         if ($user) {
             $this->dispatcher->dispatch(new Authenticated('php-native-session', $user));
