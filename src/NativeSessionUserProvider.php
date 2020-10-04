@@ -2,8 +2,7 @@
 
 namespace CustomerGauge\Session;
 
-use App\Components\Authentication\Authorization;
-use App\Components\Authentication\User;
+use CustomerGauge\Session\Contracts\UserFactory;
 use Illuminate\Contracts\Auth\Authenticatable as LaravelAuthenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 

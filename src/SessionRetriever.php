@@ -2,7 +2,7 @@
 
 namespace CustomerGauge\Session;
 
-final class SessionStart
+final class SessionRetriever
 {
     private $path;
 
@@ -10,7 +10,7 @@ final class SessionStart
 
     private $secure = true;
 
-    private $started = false;
+    private $session = null;
 
     public function __construct(string $path, string $domain)
     {
@@ -18,11 +18,11 @@ final class SessionStart
         $this->domain = $domain;
     }
 
-    public static function fake(): self
+    public static function fake(array $session): self
     {
         $instance = new self('', '');
 
-        $instance->started = true;
+        $instance->session = $session;
 
         return $instance;
     }
@@ -34,10 +34,10 @@ final class SessionStart
         return $this;
     }
 
-    public function start()
+    public function retrieve(): array
     {
-        if ($this->started) {
-            return;
+        if ($this->session !== null) {
+            return $this->session;
         }
 
         ini_set('session.gc_maxlifetime', '1800');
@@ -49,6 +49,8 @@ final class SessionStart
 
         session_start();
 
-        $this->started = true;
+        $this->session = $_SESSION;
+
+        return $this->session;
     }
 }
