@@ -49,11 +49,13 @@ The last thing you'll need is to provide your own implementation of `UserFactory
 ```
 final class NativeSessionUserFactory implements UserFactory
 {
-    public function make(array $payload): ?Authenticatable
+    public function make(array $session): ?Authenticatable
     {
+        // $session here is the same as $_SESSION
+        
         return new MyUserObject(
-            $payload['username'],
-            $payload['custom:my_custom_cognito_attribute'],
+            $session['id'],
+            $session['my_user_attribute'],
         );
     }
 }
