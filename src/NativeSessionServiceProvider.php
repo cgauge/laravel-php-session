@@ -3,6 +3,7 @@
 namespace CustomerGauge\Session;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +17,15 @@ final class NativeSessionServiceProvider extends ServiceProvider
 
         Auth::extend(NativeSessionGuard::class, function (Container $app) {
             return $app->make(NativeSessionGuard::class);
+        });
+
+        $this->app->bind(SessionRetriever::class, function () {
+            $config = $this->app->make(Repository::class);
+            $path = $config->get('auth.guards.php.storage');
+
+            $domain = $config->get('auth.guards.php.domain');
+
+            return new SessionRetriever($path, $domain);
         });
     }
 }
