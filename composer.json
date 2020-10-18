@@ -1,5 +1,5 @@
 {
-  "name": "customergauge/php-session",
+  "name": "customergauge/session",
   "description": "Native PHP Session adapter for Laravel Authentication",
   "type": "library",
   "license": "MIT",
