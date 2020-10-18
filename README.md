@@ -47,7 +47,7 @@ Configure the `auth` middleware at `App\Http\Kernel` with `'auth:php'`
 The last thing you'll need is to provide your own implementation of `UserFactory` and register it in a ServiceProvider.
 
 ```
-final class CognitoUserFactory implements UserFactory
+final class NativeSessionUserFactory implements UserFactory
 {
     public function make(array $payload): ?Authenticatable
     {
