@@ -6,7 +6,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 final class FakeDispatcher implements Dispatcher
 {
-    public function listen($events, $listener)
+    public function listen($events, $listener = null)
     {
 
     }
