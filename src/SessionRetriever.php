@@ -47,7 +47,13 @@ final class SessionRetriever
         ini_set('session.cookie_secure', (string) $this->secure);
         ini_set('session.cookie_httponly', '1');
 
-        session_start();
+        // When AWS Elasticache DNS resolution fails, PHP throws an error
+        // session_start(): php_network_getaddresses: getaddrinfo failed: Name or service not known
+        // This error is happening on 0.02% of our requests and AWS treat it as transient network
+        // issues. Retrying before giving up might mitigate the problem.
+        retry(3, function () {
+            session_start();
+        });
 
         $this->session = $_SESSION;
 
