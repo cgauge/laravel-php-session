@@ -19,8 +19,9 @@ final class NativeSessionServiceProvider extends ServiceProvider
             return $app->make(NativeSessionGuard::class);
         });
 
-        $this->app->bind(SessionRetriever::class, function () {
+        $this->app->singleton(SessionRetriever::class, function () {
             $config = $this->app->make(Repository::class);
+            
             $path = $config->get('auth.guards.php.storage');
 
             $domain = $config->get('auth.guards.php.domain');
