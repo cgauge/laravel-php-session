@@ -40,7 +40,7 @@ final class SessionRetriever
             return $this->session;
         }
 
-        ini_set('session.gc_maxlifetime', '1800');
+        ini_set('session.gc_maxlifetime', '28800');
         ini_set('session.save_handler', 'redis');
         ini_set('session.save_path', $this->path);
         ini_set('session.cookie_domain', $this->domain);
