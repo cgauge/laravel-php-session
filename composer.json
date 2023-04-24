@@ -14,11 +14,11 @@
   "prefer-stable": true,
   "require": {
     "php": ">=7.3",
-    "illuminate/auth": "^7.28 || ^8.0 || ^9.0",
-    "illuminate/contracts": "7.28 || ^8.0 || ^9.0"
+    "illuminate/auth": ">=7.28",
+    "illuminate/contracts": ">=7.28"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.3",
+    "phpunit/phpunit": ">=9.3",
     "phpstan/phpstan": "^1.0"
   },
   "autoload": {
