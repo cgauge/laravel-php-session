@@ -2,6 +2,7 @@
 
 namespace CustomerGauge\Session;
 
+use BadMethodCallException;
 use CustomerGauge\Session\Contracts\UserFactory;
 use Illuminate\Contracts\Auth\Authenticatable as LaravelAuthenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
@@ -20,18 +21,48 @@ final class NativeSessionUserProvider implements UserProvider
         return $this->factory->make($session);
     }
 
-    /** @phpstan-ignore-next-line */
-    public function retrieveById($identifier)
-    {}
-
-    /** @phpstan-ignore-next-line */
-    public function retrieveByToken($identifier, $token)
-    {}
-
-    public function updateRememberToken(LaravelAuthenticatable $user, $token)
-    {}
-
-    /** @phpstan-ignore-next-line */
+    /**
+     * @inheritdoc
+     * @phpstan ignore
+     */
     public function validateCredentials(LaravelAuthenticatable $user, array $credentials)
-    {}
+    {
+        throw new BadMethodCallException('Not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @phpstan ignore
+     */
+    public function retrieveById($identifier)
+    {
+        throw new BadMethodCallException('Not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @phpstan ignore
+     */
+    public function retrieveByToken($identifier, $token)
+    {
+        throw new BadMethodCallException('Not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @phpstan ignore
+     */
+    public function updateRememberToken(LaravelAuthenticatable $user, $token)
+    {
+        throw new BadMethodCallException('Not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @phpstan ignore
+     */
+    public function rehashPasswordIfRequired(LaravelAuthenticatable $user, array $credentials, bool $force = false)
+    {
+        throw new BadMethodCallException('Not implemented');
+    }
 }
