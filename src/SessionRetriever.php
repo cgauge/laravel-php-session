@@ -47,6 +47,9 @@ final class SessionRetriever
         ini_set('session.cookie_secure', (string) $this->secure);
         ini_set('session.cookie_httponly', '1');
         ini_set('session.cookie_samesite', 'Lax');
+        // Empty limiter stops session_start() from sending Cache-Control and Expires,
+        // which would conflict with the headers the framework sets on the response.
+        ini_set('session.cache_limiter', '');
 
         // When AWS Elasticache DNS resolution fails, PHP throws an error
         // session_start(): php_network_getaddresses: getaddrinfo failed: Name or service not known
